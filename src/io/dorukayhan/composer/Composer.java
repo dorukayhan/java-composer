@@ -109,8 +109,8 @@ public class Composer {
 			ArrayList<int[]> freqsAndDurations = new ArrayList<>(notes.length);
 			for(String note : notes) {
 				try {
-					String[] components = note.split("(?<=[0-9])(?=[a-g])"); // Matches the boundary between the fraction and the note
-					int[] noteAsFreqAndTime = {noteToFrequency(components[1]), fractionToDuration(Integer.parseInt(components[0]))};
+					String[] components = note.replace("\uFEFF", "").split("(?<=[0-9])(?=[a-g])"); // Matches the boundary between the fraction and the note
+					int[] noteAsFreqAndTime = {noteToFrequency(components[1]), fractionToDuration(Integer.parseInt(components[0], 10))};
 					freqsAndDurations.add(noteAsFreqAndTime);
 				}catch(Exception e) {
 					throw new BadNoteException(note, e);
